@@ -15,18 +15,18 @@ export function drawReceipt(p) {
   // Header
   p.noStroke();
   p.fill(0);
-    p.textFont("monospace");
+    p.textFont("comic sans");
     p.textAlign(p.CENTER, p.TOP);
     p.textStyle(p.BOLD);
     p.textSize(28);
     p.text("NIGHT SIGNALS", w / 2, 30);
 
-  dashedLine(p, margin, 94, w - margin, 94, 6, 5);
+  dashedLine(p, margin, 84, w - margin, 92, 6, 5);
 
   // A seeded field of tiny stars and radio noise.
   for (let i = 0; i < 150; i += 1) {
     const x = p.random(margin, w - margin);
-    const y = p.random(118, 350);
+    const y = p.random(138, 342);
     const size = p.random([1, 1, 1, 2, 2, 3]);
     if (p.random() > 0.82) {
       p.rect(x - 3, y, 7, 1);
@@ -41,32 +41,32 @@ export function drawReceipt(p) {
   for (let layer = 0; layer < 5; layer += 1) {
     p.fill(layer % 2 === 0 ? 0 : 255);
     p.stroke(0);
-    p.strokeWeight(2);
+    p.strokeWeight(4);
     p.beginShape();
-    p.vertex(margin, 500 + layer * 48);
+    p.vertex(margin, 528 + layer * 43);
     for (let x = margin; x <= w - margin; x += 5) {
-      const wave = p.noise(x * 0.012, layer * 4.2) * 90;
+      const wave = p.noise(x * 0.015, layer * 4.6) * 90;
       const y = ridgeTop + layer * 50 - wave;
       p.vertex(x, y);
     }
-    p.vertex(w - margin, 500 + layer * 48);
+    p.vertex(w - margin, 528 + layer * 43);
     p.endShape(p.CLOSE);
   }
 
   // The transmission: a winding route with little station markers.
   p.noFill();
   p.stroke(0);
-  p.strokeWeight(5);
+  p.strokeWeight(7);
   p.beginShape();
   const route = [];
   for (let y = 585; y < 915; y += 34) {
-    const x = p.map(p.noise(y * 0.018, 20), 0, 1, 68, w - 68);
+    const x = p.map(p.noise(y * 0.023, 20), 0, 1, 68, w - 68);
     route.push({ x, y });
     p.vertex(x, y);
   }
   p.endShape();
 
-  p.strokeWeight(2);
+  p.strokeWeight(3);
   p.fill(255);
   route.forEach(({ x, y }, index) => {
     if (index % 2 === 0) {
